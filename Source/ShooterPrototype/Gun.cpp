@@ -2,13 +2,18 @@
 
 
 #include "Gun.h"
+
+#include <concrt.h>
+
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "DrawDebugHelpers.h"
+#include "ToolContextInterfaces.h"
 
 // Sets default values
 AGun::AGun()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	Root = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
@@ -16,25 +21,40 @@ AGun::AGun()
 
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("MeshComponent"));
 	Mesh->SetupAttachment(Root);
-
 }
 
 void AGun::PullTrigger()
 {
 	UGameplayStatics::SpawnEmitterAttached(MuzzleFlash, Mesh,TEXT("MuzzleFlashSocket"));
+	APawn* OwnerPawn = Cast<APawn>(GetOwner());
+	if (OwnerPawn == nullptr) return;
+	AController* OwnerController = OwnerPawn->GetController();
+
+	FVector OwnerLocation;
+	FRotator OwnerRotation;
+	OwnerController->GetPlayerViewPoint(OwnerLocation, OwnerRotation);
+	//DrawDebugCamera(GetWorld(), OwnerLocation, OwnerRotation, 90.0, 1.0, FColor::Red, true );
+
+
+	FVector End = OwnerLocation + OwnerRotation.Vector() * MaxRange;
+	// TODO: line trace
+	FHitResult Hit;
+	bool bSuccess = GetWorld()->LineTraceSingleByChannel(Hit, OwnerLocation, End,
+	                                                     ECollisionChannel::ECC_GameTraceChannel1);
+	if (bSuccess)
+	{
+		DrawDebugPoint(GetWorld(), Hit.Location, 20, FColor::Red, true);
+	}
 }
 
 // Called when the game starts or when spawned
 void AGun::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
 void AGun::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
-
