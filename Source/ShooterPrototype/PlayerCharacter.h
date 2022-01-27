@@ -30,6 +30,7 @@ public:
 private:
 	void MoveForward(float AxisValue);
 	void MoveRight(float AxisValue);
+	void Shoot();
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<AGun> GunClass;
@@ -37,5 +38,3 @@ private:
 	UPROPERTY()
 	AGun* Gun;
 };
-
-
