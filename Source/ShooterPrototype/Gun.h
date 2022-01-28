@@ -11,8 +11,8 @@ UCLASS()
 class SHOOTERPROTOTYPE_API AGun : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AGun();
 
@@ -23,7 +23,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -32,8 +32,18 @@ private:
 	USceneComponent* Root;
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* Mesh;
-	UPROPERTY(EditAnywhere)
+
+
+	//particles
+	UPROPERTY(EditAnywhere, Category="Particle System")
 	UParticleSystem* MuzzleFlash;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category="Particle System")
 	float MaxRange = 1000;
+	UPROPERTY(EditAnywhere, Category="Particle System")
+	UParticleSystem* ImpactEffect;
+
+	//damage
+	UPROPERTY(EditAnywhere)
+	float Damage = 10.0;
+	
 };
