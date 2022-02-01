@@ -11,7 +11,10 @@ void AShooterAIController::BeginPlay()
 
 	PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(),0);
 
-	
+	if(AIBehaviorTree != nullptr)
+	{
+		RunBehaviorTree(AIBehaviorTree);
+	}
 
 
 }
@@ -20,17 +23,7 @@ void AShooterAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	//AI LOS and follow focus
-	if (LineOfSightTo(PlayerPawn))
-	{
-		SetFocus(PlayerPawn, EAIFocusPriority::Gameplay);
-		MoveToActor(PlayerPawn, AcceptanceRadius);
 
-	}else
-	{
-		ClearFocus(EAIFocusPriority::Gameplay);
-		StopMovement();
-	}
 }
 
 
