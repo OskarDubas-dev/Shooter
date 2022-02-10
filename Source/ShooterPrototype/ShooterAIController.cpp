@@ -16,7 +16,6 @@ void AShooterAIController::BeginPlay()
 	{
 		RunBehaviorTree(AIBehaviorTree);
 		GetBlackboardComponent()->SetValueAsVector(TEXT("StartLocation"), GetPawn()->GetActorLocation());
-		//GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
 	}
 
 
@@ -26,7 +25,7 @@ void AShooterAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if(LineOfSightTo(PlayerPawn))
+	/*if(LineOfSightTo(PlayerPawn))
 	{
 		if(AIBehaviorTree != nullptr)
 		{
@@ -37,7 +36,7 @@ void AShooterAIController::Tick(float DeltaSeconds)
 	}else
 	{
 		GetBlackboardComponent()->ClearValue(TEXT("PlayerLocation"));
-	}
+	}*/
 
 
 }

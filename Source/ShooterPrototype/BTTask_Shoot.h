@@ -16,7 +16,7 @@ class SHOOTERPROTOTYPE_API UBTTask_Shoot : public UBTTaskNode
 	GENERATED_BODY()
 public:
 	UBTTask_Shoot();
-	APlayerCharacter* AIPawn;
+	APlayerCharacter* AICharacter;
 
 	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) override;
 	

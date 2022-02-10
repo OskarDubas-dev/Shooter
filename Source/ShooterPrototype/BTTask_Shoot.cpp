@@ -12,9 +12,16 @@ UBTTask_Shoot::UBTTask_Shoot()
 
 EBTNodeResult::Type UBTTask_Shoot::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
-	AAIController* AIController = OwnerComp.GetAIOwner();
-	AIPawn = Cast<APlayerCharacter>( AIController->GetOwner());
 
-	AIPawn->Shoot();
+	if(OwnerComp.GetAIOwner() == nullptr)
+	{
+		return EBTNodeResult::Failed;
+	}
+
+	AICharacter = Cast<APlayerCharacter>( OwnerComp.GetAIOwner()->GetPawn());
+	if(AICharacter == nullptr) {return EBTNodeResult::Failed;}
+
+	AICharacter->Shoot();
+	
 	return Super::ExecuteTask(OwnerComp, NodeMemory);
 }
