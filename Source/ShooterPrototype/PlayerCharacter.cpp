@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 
 #include "Gun.h"
+#include "Components/CapsuleComponent.h"
 
 
 // Sets default values
@@ -52,6 +53,14 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	float DamageToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	DamageToApply = FMath::Min(Health, DamageToApply);
 	Health -= DamageToApply;
+
+	//Health is 0 or less
+	if(IsDead())
+	{
+		DetachFromControllerPendingDestroy();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	}
+	
 	return DamageToApply;
 }
 
