@@ -49,31 +49,32 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 }
 
 float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
-	AActor* DamageCauser)
+                                   AActor* DamageCauser)
 {
 	float DamageToApply = Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 	DamageToApply = FMath::Min(Health, DamageToApply);
 	Health -= DamageToApply;
 
 	//Health is 0 or less
-	if(IsDead())
+	if (IsDead())
 	{
-		DetachFromControllerPendingDestroy();
-		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		AShooterPrototypeGameModeBase* GameMode = GetWorld()->GetAuthGameMode<AShooterPrototypeGameModeBase>();
-		if(GameMode != nullptr)
+		if (GameMode != nullptr)
 		{
 			GameMode->PawnKilled(this);
 		}
-		
+
+
+		DetachFromControllerPendingDestroy();
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
-	
+
 	return DamageToApply;
 }
 
 bool APlayerCharacter::IsDead() const
 {
-	if(Health <= 0)
+	if (Health <= 0)
 		return true;
 	else return false;
 }
