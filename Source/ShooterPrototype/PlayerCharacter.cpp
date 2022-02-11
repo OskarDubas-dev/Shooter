@@ -4,6 +4,7 @@
 #include "PlayerCharacter.h"
 
 #include "Gun.h"
+#include "ShooterPrototypeGameModeBase.h"
 #include "Components/CapsuleComponent.h"
 
 
@@ -59,7 +60,11 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 	{
 		DetachFromControllerPendingDestroy();
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		
+		AShooterPrototypeGameModeBase* GameMode = GetWorld()->GetAuthGameMode<AShooterPrototypeGameModeBase>();
+		if(GameMode != nullptr)
+		{
+			GameMode->PawnKilled(this);
+		}
 		
 	}
 	
