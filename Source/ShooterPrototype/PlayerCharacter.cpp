@@ -64,9 +64,9 @@ float APlayerCharacter::TakeDamage(float DamageAmount, FDamageEvent const& Damag
 			GameMode->PawnKilled(this);
 		}
 
-
 		DetachFromControllerPendingDestroy();
 		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		UE_LOG(LogTemp, Warning, TEXT("dead"));
 	}
 
 	return DamageToApply;

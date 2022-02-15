@@ -19,6 +19,8 @@ private:
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> GameOverClass;
 	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> WinScreenClass;
+	UPROPERTY(EditAnywhere)
 	float RestartDelay = 4.0;
 
 	FTimerHandle RestartTimer;

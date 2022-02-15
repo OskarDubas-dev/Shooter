@@ -15,7 +15,10 @@ class SHOOTERPROTOTYPE_API AKillEmAllGameMode : public AShooterPrototypeGameMode
 	GENERATED_BODY()
 public:
 	virtual void PawnKilled(APawn* PawnKilled) override;
+	virtual void BeginPlay() override;
 private:
 	void EndGame(bool bIsPlayerWinner);
+
+	int EnemyCounter;
 	
 };
