@@ -15,7 +15,10 @@ class SHOOTERPROTOTYPE_API AShooterPlayerController : public APlayerController
 	GENERATED_BODY()
 public:
 	virtual void GameHasEnded(AActor* EndGameFocus, bool bIsWinner) override;
+	virtual void BeginPlay() override;
 private:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UUserWidget> HUDClass;
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UUserWidget> GameOverClass;
 	UPROPERTY(EditAnywhere)

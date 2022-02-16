@@ -29,3 +29,10 @@ void AShooterPlayerController::GameHasEnded(AActor* EndGameFocus, bool bIsWinner
 	
 	GetWorldTimerManager().SetTimer(RestartTimer, this, &APlayerController::RestartLevel, RestartDelay);
 }
+
+void AShooterPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	UUserWidget* HUD = CreateWidget(this, HUDClass);
+	if(HUD != nullptr) HUD->AddToViewport();
+}
